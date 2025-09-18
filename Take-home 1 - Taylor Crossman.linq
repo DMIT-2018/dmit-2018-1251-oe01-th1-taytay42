@@ -15,7 +15,27 @@
 </Query>
 
 // Question 1
+// Report Includes:
+// Club activities scheduled on or after Jan. 1, 2025 (done)
+// Omit Campus Venue labelled "Scheduled Room" and Name "BTech Club Meeting" (done)
 
+// Each event must list:
+// start date, venue name, hosting club's name, activity title (done)
+// Present all entries in ascending order by start date (done)
+
+ClubActivities
+	.Where(x => x.StartDate.Value >= new DateTime(2025, 1, 1)
+	&& x.CampusVenue.Location != "Scheduled Room"
+	&& x.Name != "BTech Club Meeting")
+	.Select(x => new
+	{
+		StartDate = x.StartDate,
+		Location = x.CampusVenue.Location,
+		Club = x.Club.ClubName,
+		Activity = x.Name
+	})
+	.OrderBy(x => x.StartDate)
+	.Dump();
 
 // Question 2
 
