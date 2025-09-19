@@ -77,7 +77,25 @@ Students
 .Dump();
 
 // Question 4
+// Select employees with: 
+// position "instructor", release date null, have taught at least 1 class in ClassOfferings (done)
+// Order by descending number of class offering THEN by LastName (done)
+// Include program name, full name, Workload Label (Over 24 offerings = "High", over 8 = "Medium", otherwise = "Low") (done)
 
-
+Employees
+	.Where(x => x.PositionID == 4
+	&& x.ReleaseDate == null
+	&& x.ClassOfferings.Count() > 0)
+	.OrderByDescending(x => x.ClassOfferings.Count())
+	.ThenBy(x => x.LastName)
+		.Select(x => new
+		{
+			ProgramName = x.Program.ProgramName,
+			FullName = x.FirstName + " " + x.LastName,
+			WorkLoad = x.ClassOfferings.Count() > 24 ? "High" : x.ClassOfferings.Count() > 8 ? "Medium" : "Low"
+		}
+		)
+	.Dump();
 
 // Question 5
+
