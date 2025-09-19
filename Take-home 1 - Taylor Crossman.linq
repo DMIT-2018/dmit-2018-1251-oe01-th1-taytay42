@@ -1,12 +1,11 @@
 <Query Kind="Statements">
   <Connection>
-    <ID>cc994ada-44af-43cd-86d7-d2bdd23181aa</ID>
+    <ID>1f02f3c6-d763-4494-849b-66409a24af55</ID>
     <NamingServiceVersion>2</NamingServiceVersion>
     <Persist>true</Persist>
     <Server>TAYLORSPC\SQLEXPRESS</Server>
     <AllowDateOnlyTimeOnly>true</AllowDateOnlyTimeOnly>
     <AlwaysPrefixWithSchemaName>true</AlwaysPrefixWithSchemaName>
-    <DeferDatabasePopulation>true</DeferDatabasePopulation>
     <Database>StartTed-2025-Sept</Database>
     <DriverData>
       <LegacyMFA>false</LegacyMFA>
@@ -39,6 +38,23 @@ ClubActivities
 
 // Question 2
 
+// Must Map SchoolCode to its full school name (done?)
+// Include program name (done)
+// Count required courses & optional courses (done)
+// Filter to only ones with required course count equal or greater than 22 (done)
+// Order final list by program name (done)
+
+Programs
+	.Select(x => new
+	{
+		School = x.Schools.SchoolName,
+		Program = x.ProgramName,
+		RequiredCourseCount = x.ProgramCourses.Count(x => x.Required),
+		OptionalCourseCount = x.ProgramCourses.Count(x => !x.Required)
+	})
+	.Where(x => x.RequiredCourseCount >= 22)
+	.OrderBy(x => x.Program)
+	.Dump();
 
 // Question 3
 
