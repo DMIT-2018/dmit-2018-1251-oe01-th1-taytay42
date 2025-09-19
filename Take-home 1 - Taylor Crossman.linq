@@ -64,17 +64,17 @@ Programs
 // Student Number, Full Country Name, Full Name, Club Membership Count (diusplays "none" if no clubs or memberships" (done)
 
 Students
-.Where(x => x.StudentPayments.Count() == 0)
-.Where(x => x.CountryCode != "CA")
-.OrderBy(x => x.LastName)
-.Select(x => new
+	.Where(x => x.StudentPayments.Count() == 0 
+	&& x.CountryCode != "CA")
+	.OrderBy(x => x.LastName)
+	.Select(x => new
 	{
 		StudentNumber = x.StudentNumber,
 		CountryName = x.Countries.CountryName,
 		FullName = x.FirstName + " " + x.LastName,
 		ClubMembershipCount = x.ClubMembers.Count() == 0 ? "None" : x.ClubMembers.Count().ToString(),
 	})
-.Dump();
+	.Dump();
 
 // Question 4
 // Select employees with: 
@@ -93,8 +93,7 @@ Employees
 			ProgramName = x.Program.ProgramName,
 			FullName = x.FirstName + " " + x.LastName,
 			WorkLoad = x.ClassOfferings.Count() > 24 ? "High" : x.ClassOfferings.Count() > 8 ? "Medium" : "Low"
-		}
-		)
+		})
 	.Dump();
 
 // Question 5
