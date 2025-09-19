@@ -57,9 +57,27 @@ Programs
 	.Dump();
 
 // Question 3
+// Filter Students to those with 0 entries in StudentPayments (done)
+// + Country is not from Canada (done)
+// Order by last name (done)
+// for each student, include:
+// Student Number, Full Country Name, Full Name, Club Membership Count (diusplays "none" if no clubs or memberships" (done)
 
+Students
+.Where(x => x.StudentPayments.Count() == 0)
+.Where(x => x.CountryCode != "CA")
+.OrderBy(x => x.LastName)
+.Select(x => new
+	{
+		StudentNumber = x.StudentNumber,
+		CountryName = x.Countries.CountryName,
+		FullName = x.FirstName + " " + x.LastName,
+		ClubMembershipCount = x.ClubMembers.Count() == 0 ? "None" : x.ClubMembers.Count().ToString(),
+	})
+.Dump();
 
 // Question 4
+
 
 
 // Question 5
