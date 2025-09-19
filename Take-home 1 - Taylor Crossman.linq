@@ -98,4 +98,21 @@ Employees
 	.Dump();
 
 // Question 5
+// Contains: 
+// Supervisor ("Unknown if Employee is null, otherwise full name) (done)
+// Club Name (done)
+// Member Count (# of entries in the ClubMembers table) (done)
+// Activities (display "None Schedule" if Clubactivities.Count() == 0 (done)
+// Order by member count in descending order (done)
+
+Clubs
+	.Select(x => new
+	{
+		Supervisor = x.Employee != null ? x.Employee.FirstName + " " + x.Employee.LastName : "Unknown",
+		Club = x.ClubName,
+		MemberCount = x.ClubMembers.Count(),
+		Activities = x.ClubActivities.Count() > 0 ? x.ClubActivities.Count().ToString() : "None Schedule",
+	})
+	.OrderByDescending(x => x.MemberCount)
+	.Dump();
 
